@@ -1,0 +1,70 @@
+.messageWrapper {
+  border: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  margin: 20px 0 0 20px;
+  background: transparent;
+  display: flex;
+  width: 80%;
+  flex-direction: row;
+}
+
+.messageAvatar {
+  margin-right: 10px;
+}
+
+.messageAvatar img {
+  height: 40px;
+}
+.messageAvatar .messageAuthor {
+  color: #616161;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+}
+.messageAvatar .messageTime {
+  /* font-family: Open Sans; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  color: #9e9e9e;
+}
+
+/* MESSAGE */
+.message {
+    background-color: #fff;
+    border-radius: 0 10px 10px 10px;
+    padding: 20px;
+    margin-top: 2px;
+}
+
+.messageContent {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #424242;
+  margin-top: 15px;
+}
+
+.messageActions img {
+  height: 18px;
+}
+.messageActions img:hover {
+  cursor: pointer;
+}
+.messageLike {
+  display: flex;
+  align-items: center;
+  border: 2px solid black;
+  height: auto;
+  width: auto;
+}
+.messageLike > img {
+  height: 4px;
+  width: 4px;
+}
+
+.messageLike span {
+  margin-left: 2px;
+}
