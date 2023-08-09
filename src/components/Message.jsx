@@ -1,31 +1,95 @@
 import styles from "./Message.module.css";
-import React from "react";
+import React, { useState } from "react";
+
+const Message = React.memo((props)  => {
+  const [isLiked, setIsLiked] = useState(false);
+  let [likes, setLikes] = useState(Math.floor(Math.random() * 5)+1);
+  console.log(likes)
+  const messageLines = props.msg.text.split('\n');
 
 
-export default function Message() {
+  const handleLike = () => {
+    if (!isLiked) {
+      setIsLiked(true);
+      setLikes(likes + 1);
+      return;
+    } else {
+      setIsLiked(false);
+      setLikes(likes - 1);
+      return;
+    }
+  };
+
+  // Define a user-color mapping
+  const userColors = {
+    Alan: "green",
+    Bob: "red",
+    Carol: "blue",
+    Dean: "purple",
+    Elin: "orange",
+  };
+
+  const userBackgroundColor = userColors[props.msg.userName] || "gray";
+
   return (
-      <div className={styles.messageWrapper}>
-          <div className={styles.messageAvatar}>
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/1458/1458201.png"
-              alt="user-pic"
-            />
-          </div>
-          <div>
-            <div style={{marginBottom:"5px"}}>
-              <span className={styles.messageAuthor}>Rahul</span>
-              <span className={styles.messageTime}>a minute ago</span>
-            </div>
-            <div className={styles.message}>
-                <span className={styles.messageContent}>Hellow everyone</span>
-                <div className={styles.messageLike}>
-                    <button style={{ background: "transparent", border: "none" }}>
-                    <img src="/" alt="likes-icon" />
-                    </button>
-                    <span>2</span>
-                </div>
-            </div>
-          </div>
+    <div className={styles.messageWrapper}>
+      <div className={styles.messageAvatar}>
+        <div style={{ backgroundColor: userBackgroundColor }}>
+          <p style={{ fontSize: "26px", color: "white" }}>
+            {props.msg.userName[0]}
+          </p>
+        </div>
       </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          position: "relative",
+        }}
+      >
+        <div style={{ margin: "8px 0" }}>
+          <span
+            style={{
+              fontSize: "18px",
+              fontWeight: "bold",
+              color: "#fff",
+              marginRight: "10px",
+            }}
+          >
+            {props.msg.userName}
+          </span>
+          <span style={{ color: "gray" }}>2: 59 pm</span>
+        </div>
+        <div className={styles.message}>
+          {messageLines.map((line, index) => (
+            <span key={index}>{line}</span>
+          ))}
+        </div>
+        <div className={styles.messageLike}>
+          <button
+            style={{
+              backgroundColor: "transparent",
+              border: "none",
+              padding: "0%",
+            }}
+            onClick={handleLike}
+          >
+            <i
+              style={{
+                fontSize: "15px",
+                cursor: "pointer",
+                color: isLiked ? "red" : "#d1d1d1",
+              }}
+              className="fa-solid fa-heart"
+            ></i>
+          </button>
+          <span style={{ marginLeft: likes > 1 ? "5px" : "0", color: "gray" }}>
+            {likes > 1 ? `${likes}` : null}
+          </span>
+        </div>
+      </div>
+    </div>
   );
-}
+})
+
+export default Message;

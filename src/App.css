@@ -8,52 +8,115 @@
 
 .chatbox {
   border: 3px solid rgb(161, 157, 157);
-  border-radius: 2%;
+  border-radius: 12px;
   width: 60vw;
   height: 80vh;
-  background-color: rgb(232, 245, 201);
+  background: url("https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/Desktop.png");
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.4), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 2em 6em rgba(0, 0, 0, 0.3);
 }
 
 .topUserName {
-  border-bottom: 2px solid rgb(161, 157, 157);
   width: 90%;
-  height: 10%;
+  padding: 0 5%;
+  height: 12%;
   margin-left: auto;
   margin-right: auto;
+  background-color: #3e5b76;
+  border-radius: 9px 9px 0 0;
+  box-shadow: 0px 15px 10px -15px rgba(223, 232, 232, 0.5);
 }
 
 .topUserName > h2 {
+  margin-top: 0; /* Reset margin */
+  padding-top: 10px;
   margin-bottom: 5px;
 }
 
 .topUserName > span {
-  color: gray;
+  color: rgb(169, 176, 176);
 }
 
 /* CHATS */
 
 .chats {
-  width: 100%;
+  width: 95%;
   height: 75%;
-  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column-reverse;
+  overflow-y: scroll;
+  align-items: center;
+}
 
+.chats::-webkit-scrollbar {
+  width: 0;
+  border-radius: 50%;
 }
 
 /* INPUT */
 .inputDiv {
-  /* border: 2px solid red; */
-  width: 85%;
-  height: 8%;
+  position: relative;
+  width: 90%;
+  height: fit-content;
+  padding: 0.65em 0;
   margin-top: 1%;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  border: 1px solid black;
+  background: rgb(44, 71, 91);
+  border-radius: 35px;
 }
 
-.inputDiv > input {
-  width:90%;
-  height: 85%;
-  border-radius: 35px;
-  padding: 0 4% 0 4%;
-  background: rgb(250, 247, 219);
-  font-size: 1.2em;
+.inputIcon {
+  position: absolute;
+  left: 1em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.inputIcon > i {
+  font-size: 1.5em;
+  color: #aba4a4;
+  cursor: pointer;
+}
+
+.sendIcon {
+  position: absolute;
+  right: 1.4em;
+  top: 50%;
+  width: 2.4em; /* Set fixed width */
+  height: 2.4em; /* Set fixed height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.sendIcon > i {
+  font-size: 1.5em;
+  color: #aba4a4;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.sendIcon > i:hover {
+  color: #519f65;
+}
+
+.inputDiv > textarea {
+  width: 100%;
+  border: none;
+  padding: 0.15em 2em;
+  font-size: 1.8em;
+  outline: none;
+  background-color: transparent;
+  resize: none;
+  color: rgb(197, 192, 192);
+}
+
+/* Customize scrollbar for WebKit browsers (Chrome, Safari) */
+textarea::-webkit-scrollbar {
+  width: 0;
 }
