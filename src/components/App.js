@@ -1,12 +1,15 @@
 import '../App.css';
 import React, { useState } from 'react';
-// import ScrollView from 'react-inverted-scrollview';
 import Message from './Message';
+
+import EmojiPicker from 'emoji-picker-react';
+
 function App() {
 
   const [messages, setMessages] = useState([]);
-
   const [newMessage, setNewMessage] = useState('');
+  const [showMentions, setShowMentions] = useState(false);
+  const [showEmoji, setShowEmoji] = useState(false);
 
   const users = ["Alan", "Bob", "Carol", "Dean", "Elin"]; // USERS
 
@@ -23,17 +26,21 @@ function App() {
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && event.shiftKey) {
-      // Prevent the default behavior (creating a new line)
-      event.preventDefault();
-  
-      // Manually insert a newline character
-      setNewMessage(newMessage + '\n');
+      // Not to be done anything
     }else if (event.key === 'Enter') {
-      event.preventDefault(); // Prevent Enter from creating a new line
-      handleSend(); // Call handleSend when Enter key is pressed
+      event.preventDefault();
+      handleSend();
+    } else if(event.key === '@'){
+      setShowMentions(true);
     }
   };
 
+  const onEmojiClick = (emojiObject, e) => {
+    const emoji = emojiObject.emoji;
+    console.log(emoji)
+    setNewMessage(newMessage +" "+emoji); 
+    setShowEmoji(false);
+  }
   return (
     <div className="App">
       {/* MAIN CHAT BOX */}
@@ -51,9 +58,25 @@ function App() {
           })}
         </div>
 
+        {/* MENTION */}
+        {showMentions && (
+          <div className="userMentionsDiv">
+            {users.map((user, index) => (
+              <div className="usersToMention" key={index}>
+                @{user}
+              </div>
+            ))}
+          </div>
+        )}
+        
         {/* INPUT DIV */}
         <div className="inputDiv">
-          <div className="inputIcon">
+          {/* EMOJI */}
+          {showEmoji && (
+            <div className='emojiPicker'>
+              <EmojiPicker onEmojiClick={onEmojiClick}/>
+            </div>)}
+          <div className="inputIcon" onClick={() => setShowEmoji(!showEmoji)}>
             <i className="fa-regular fa-face-smile"></i>
           </div>
           <textarea rows="1" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={handleKeyDown} placeholder='Type Message...' ></textarea>

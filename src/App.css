@@ -111,6 +111,7 @@
   padding: 0.15em 2em;
   font-size: 1.8em;
   outline: none;
+  vertical-align: middle;
   background-color: transparent;
   resize: none;
   color: rgb(197, 192, 192);
@@ -119,4 +120,35 @@
 /* Customize scrollbar for WebKit browsers (Chrome, Safari) */
 textarea::-webkit-scrollbar {
   width: 0;
+}
+
+/* MENTION */
+
+.userMentionsDiv {
+  width: auto;
+  height: auto;
+  border: 1px solid white;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* EMOJI */
+.emojiPicker {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: auto;
+  height: auto;
+  overflow: auto;
+}
+
+.usersToMention {
+  width: auto;
+  height: auto;
+  background: blur;
+  backdrop-filter: blur(10px);
+  color: white;
 }
