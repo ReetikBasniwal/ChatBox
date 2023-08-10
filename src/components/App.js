@@ -86,12 +86,15 @@ function App() {
       <div className="chatbox">
         {/* TOP GROUP NAME */}
         <div className="topUserName">
-          <h2 style={{ color: "white" }}>Homies</h2>
-          <span>This group is for my loved ones</span>
-
-          <span style={{position:"absolute", right:"10%", top:"30%", marginRight:"2%"}}>3/100</span>
-          <button><FiUsers /></button>
-
+          <div className='groupInfo'>
+            <h2 style={{ color: "white" }}>Homies</h2>
+            <span>This group is for my loved ones</span>
+          </div>
+      
+          <div className='groupOpt'>
+            <span>3/100</span>
+            <button><FiUsers /></button>
+          </div>
         </div>
 
         {/* CHATS */}

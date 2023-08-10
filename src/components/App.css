@@ -28,24 +28,32 @@
   height: 12%;
   margin-left: auto;
   margin-right: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   background-color: #3e5b76;
   border-radius: 9px 9px 0 0;
 }
 
-.topUserName > h2 {
+.groupInfo > h2 {
   margin-top: 0; /* Reset margin */
   padding-top: 10px;
   margin-bottom: 5px;
 }
 
-.topUserName > span {
+.groupInfo > span {
   color: rgb(169, 176, 176);
 }
+.groupOpt {
+  display: flex;
+  align-items: center;
+}
 
-.topUserName > button {
-  position: absolute;
-  right: 8%;
-  top: 25%;
+.groupOpt > span {
+  color: rgb(195, 193, 193);
+}
+
+.groupOpt > button {
   border: none;
   height: auto;
   width: auto;
@@ -53,6 +61,7 @@
   cursor: pointer;
   background-color: transparent;
   color: rgb(192, 190, 190);
+  margin-left: 5px;
 }
 
 /* CHATS */
