@@ -56,8 +56,8 @@ function App() {
   const handleMention = (user) => {
     const textarea = document.querySelector('textarea');
     const curr = textarea.selectionStart;
-    const newText = newMessageText.substring(0, curr) + user + newMessageText.substring(curr);
-    setNewMessageText(newText);
+    let newText = newMessageText.substring(0, curr) + user;
+    setNewMessageText(newText); 
     setShowMentions(false);
   }
 
@@ -106,7 +106,7 @@ function App() {
           <div className="userMentionsDiv">
             {users.map((user, index) => (
 
-              <div className="usersToMention" key={index} onClick={() => handleMention(user)}>
+              <div className="userToMention" key={index} onClick={() => handleMention(user)}>
                 <div>
                   <div className="userIcon" style={{ backgroundColor: userColors[user] }}>
                     <p style={{ fontSize: "20px", color: "white" }}>
