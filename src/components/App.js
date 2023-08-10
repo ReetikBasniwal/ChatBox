@@ -1,4 +1,7 @@
-import '../App.css';
+import './App.css';
+import { FiUsers } from 'react-icons/fi'
+import { RiSendPlane2Fill } from 'react-icons/ri'
+import { HiOutlineEmojiHappy } from 'react-icons/hi'
 import React, { useState } from 'react';
 import Message from './Message';
 
@@ -7,40 +10,76 @@ import EmojiPicker from 'emoji-picker-react';
 function App() {
 
   const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessageText, setNewMessageText] = useState('');
   const [showMentions, setShowMentions] = useState(false);
   const [showEmoji, setShowEmoji] = useState(false);
 
   const users = ["Alan", "Bob", "Carol", "Dean", "Elin"]; // USERS
 
   const handleSend = () => {
-    if (newMessage.trim() === '') return;
-
+    if (newMessageText.trim() === '') return;
     const randomUserName = users[Math.floor(Math.random() * users.length)];
-    const newMessageObj = { text: newMessage, userName: randomUserName };
+    const date = new Date();
+    const desiredTime = date.toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    })
+    const newMessageTextObj = { text: newMessageText, userName: randomUserName, timeStamp: desiredTime };
 
-    // setMessages([...messages, newMessageObj]);
-    setMessages([newMessageObj, ...messages]);
-    setNewMessage('')
+    setMessages([newMessageTextObj, ...messages]);
+    setNewMessageText('')
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter' && event.shiftKey) {
       // Not to be done anything
-    }else if (event.key === 'Enter') {
+      setShowMentions(false);
+    } else if (event.key === 'Enter') {
       event.preventDefault();
       handleSend();
-    } else if(event.key === '@'){
-      setShowMentions(true);
+    }else {
+      setShowMentions(false);
     }
   };
 
   const onEmojiClick = (emojiObject, e) => {
     const emoji = emojiObject.emoji;
-    console.log(emoji)
-    setNewMessage(newMessage +" "+emoji); 
+    const textarea = document.querySelector('textarea');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const newText = newMessageText.substring(0, start) + emoji + newMessageText.substring(end);
+    setNewMessageText(newText);
     setShowEmoji(false);
   }
+
+  const handleMention = (user) => {
+    const textarea = document.querySelector('textarea');
+    const curr = textarea.selectionStart;
+    const newText = newMessageText.substring(0, curr) + user + newMessageText.substring(curr);
+    setNewMessageText(newText);
+    setShowMentions(false);
+  }
+
+  const handleInputChange = (e) => {
+    setNewMessageText(e.target.value);
+
+    if (e.target.value.endsWith('@') || e.target.value.endsWith('@ ')) {
+      setShowMentions(true);
+    } else {
+      setShowMentions(false);
+    }
+  };
+
+  // USER COLORS
+  const userColors = {
+    Alan: "green",
+    Bob: "red",
+    Carol: "blue",
+    Dean: "purple",
+    Elin: "orange",
+  };
+
   return (
     <div className="App">
       {/* MAIN CHAT BOX */}
@@ -49,12 +88,16 @@ function App() {
         <div className="topUserName">
           <h2 style={{ color: "white" }}>Homies</h2>
           <span>This group is for my loved ones</span>
+
+          <span style={{position:"absolute", right:"10%", top:"30%", marginRight:"2%"}}>3/100</span>
+          <button><FiUsers /></button>
+
         </div>
 
         {/* CHATS */}
         <div className="chats">
           {messages.map((msg, index) => {
-            return <Message key={index} msg={msg} />
+            return <Message key={index} msg={msg} userBgColors={userColors} />
           })}
         </div>
 
@@ -62,26 +105,44 @@ function App() {
         {showMentions && (
           <div className="userMentionsDiv">
             {users.map((user, index) => (
-              <div className="usersToMention" key={index}>
-                @{user}
+
+              <div className="usersToMention" key={index} onClick={() => handleMention(user)}>
+                <div>
+                  <div className="userIcon" style={{ backgroundColor: userColors[user] }}>
+                    <p style={{ fontSize: "20px", color: "white" }}>
+                      {user[0]}
+                    </p>
+                  </div>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                      color: "#fff",
+                      marginRight: "10px",
+                    }}
+                  >
+                    {user}
+                  </span>
+                </div>
               </div>
+
             ))}
           </div>
         )}
-        
+
         {/* INPUT DIV */}
         <div className="inputDiv">
           {/* EMOJI */}
           {showEmoji && (
             <div className='emojiPicker'>
-              <EmojiPicker onEmojiClick={onEmojiClick}/>
+              <EmojiPicker onEmojiClick={onEmojiClick} />
             </div>)}
           <div className="inputIcon" onClick={() => setShowEmoji(!showEmoji)}>
-            <i className="fa-regular fa-face-smile"></i>
+            <HiOutlineEmojiHappy />
           </div>
-          <textarea rows="1" value={newMessage} onChange={(e) => setNewMessage(e.target.value)} onKeyDown={handleKeyDown} placeholder='Type Message...' ></textarea>
-          <div className="sendIcon" onClick={handleSend} >
-            <i className="fa-solid fa-paper-plane"></i>
+          <textarea rows="1" value={newMessageText} onChange={handleInputChange} onKeyDown={handleKeyDown} placeholder='Type Message...' ></textarea>
+          <div className="sendIcon" onClick={handleSend}>
+            <RiSendPlane2Fill />
           </div>
         </div>
       </div>

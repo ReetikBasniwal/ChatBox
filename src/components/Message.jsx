@@ -20,16 +20,7 @@ const Message = React.memo((props)  => {
     }
   };
 
-  // Define a user-color mapping
-  const userColors = {
-    Alan: "green",
-    Bob: "red",
-    Carol: "blue",
-    Dean: "purple",
-    Elin: "orange",
-  };
-
-  const userBackgroundColor = userColors[props.msg.userName] || "gray";
+  const userBackgroundColor = props.userBgColors[props.msg.userName] || "gray";
 
   return (
     <div className={styles.messageWrapper}>
@@ -58,7 +49,7 @@ const Message = React.memo((props)  => {
           >
             {props.msg.userName}
           </span>
-          <span style={{ color: "gray" }}>2: 59 pm</span>
+          <span style={{ color: "gray" }}>{props.msg.timeStamp}</span>
         </div>
         <div className={styles.message}>
           {messageLines.map((line, index) => (
