@@ -21,6 +21,7 @@
     0.3em 2em 6em rgba(0, 0, 0, 0.3);
 }
 
+
 .topUserName {
   width: 90%;
   position: relative;
@@ -76,9 +77,19 @@
 }
 
 .chats::-webkit-scrollbar {
-  width: 0;
+  width: 5px;
   border-radius: 50%;
 }
+
+.chats::-webkit-scrollbar-track {
+  background-color: transparent; /* Color of the scrollbar track */ 
+}
+
+.chats::-webkit-scrollbar-thumb {
+  border-radius: 1.2rem;
+  background-color: rgb(105, 105, 105); /* Color of the scrollbar thumb */
+}
+
 
 /* INPUT */
 .inputDiv {
@@ -200,5 +211,19 @@ textarea::-webkit-scrollbar {
   width: auto;
   height: auto;
   overflow: auto;
+  z-index: 3;
 }
 
+.EmojiPickerReact ::-webkit-scrollbar {
+  width: .5rem;
+}
+
+.EmojiPickerReact ::-webkit-scrollbar {
+  border-radius: 1rem;
+  background-color: rgb(105, 105, 105);
+}
+
+.EmojiPickerReact ::-webkit-scrollbar-thumb {
+  border-radius: 0.1rem;
+  background-color: #222222;
+}

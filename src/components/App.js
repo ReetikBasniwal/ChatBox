@@ -2,6 +2,7 @@ import './App.css';
 import { FiUsers } from 'react-icons/fi'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import { HiOutlineEmojiHappy } from 'react-icons/hi'
+import { EmojiStyle, Theme } from 'emoji-picker-react';
 import React, { useState } from 'react';
 import Message from './Message';
 
@@ -138,8 +139,9 @@ function App() {
           {/* EMOJI */}
           {showEmoji && (
             <div className='emojiPicker'>
-              <EmojiPicker onEmojiClick={onEmojiClick} />
-            </div>)}
+              <EmojiPicker onEmojiClick={onEmojiClick} theme={Theme.DARK}  emojiStyle={EmojiStyle.NATIVE}/>
+            </div>
+          )}
           <div className="inputIcon" onClick={() => setShowEmoji(!showEmoji)}>
             <HiOutlineEmojiHappy />
           </div>
